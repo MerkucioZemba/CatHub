@@ -149,6 +149,7 @@ header {
 	position: relative;
 	z-index: 2;
 }
+
 .card::before {
 	content: "";
 	position: absolute;
@@ -161,10 +162,12 @@ header {
 	transition: .5s linear;
 	transition-property: backdrop-filter, background-color;
 }
+
 .card:hover::before {
 	backdrop-filter: blur(0);
 	background-color: #fff4;
 }
+
 .like::after {
 	content: "\2665";
 	font-size: 2rem;
@@ -175,8 +178,9 @@ header {
 	top: 10px;
 	right: 10px;
 }
+
 .popup-wrapper {
-	position: fixed;
+	position: absolute;
 	top: 0;
 	left: 0;
 	bottom: 0;
@@ -187,9 +191,11 @@ header {
 	z-index: 10;
 	display: none;
 }
+
 .popup-wrapper.active {
 	display: flex;
 }
+
 .popup {
 	width: calc(100% - 20px);
 	max-height: calc(100% - 20px);
@@ -203,16 +209,27 @@ header {
 	position: relative;
 	display: none;
 }
+
 .popup.active {
 	display: block;
 }
-.popup-close {
+
+.popup-close-btn1 {
 	width: max-content;
 	position: absolute;
 	top: 10px;
 	right: 10px;
 	cursor: pointer;
 }
+
+.popup-close-btn2 {
+	width: max-content;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+}
+
 .popup h2 {
 	margin: 0 0 20px;
 	text-align: center;

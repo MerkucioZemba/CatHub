@@ -113,6 +113,15 @@ document
 					popupForm2.parentElement.classList.add('active');
 				}
 				openCatCardPopup(cat);
+				
+				console.log(popupForm2);
+
+				const elements = document.querySelector(".updateForm").elements;
+				elements.name.value = cat.name;
+				elements.age.value = cat.age;
+				elements.rate.value = cat.rate;
+				elements.description.value = cat.description;
+				console.log(elements);
 
 				
 				api.updateCat(cat).then((res) => {
@@ -179,7 +188,8 @@ let addBtn = document.querySelector('.add_cat');
 // let updateBtn = document.querySelector('.cat-card-update content_btn');
 let popupForm = document.querySelector('#popup-form');
 let popupForm2 = document.querySelector('#popup-form-2');
-let closePopupForm = popupForm.querySelector('.popup-close');
+let closePopupForm = popupForm.querySelector('.popup-close-btn1');
+let closePopupForm2 = popupForm2.querySelector('.popup-close-btn2');
 
 addBtn.addEventListener('click', (e) => {
 	e.preventDefault();
@@ -200,4 +210,9 @@ addBtn.addEventListener('click', (e) => {
 closePopupForm.addEventListener('click', () => {
 	popupForm.classList.remove('active');
 	popupForm.parentElement.classList.remove('active');
+});
+
+closePopupForm2.addEventListener('click', () => {
+	popupForm2.classList.remove('active');
+	popupForm2.parentElement.classList.remove('active');
 });
