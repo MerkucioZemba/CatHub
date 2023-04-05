@@ -91,6 +91,11 @@ const getCatFromLocalStorage = (catId) => {
 
 refreshCatsAndContent();
 
+const update_btn = document.querySelector('.update_cat');
+update_btn.addEventListener('click', (event) => {
+	refreshCatsAndContent();
+});
+
 document
 	.getElementsByClassName('content')[0]
 	.addEventListener('click', (event) => {
@@ -133,6 +138,9 @@ document
 						updateCatInLocalStorage({id:cat.id, ...body});
 						refreshCatsAndContentSync();
 					});
+					
+					popupForm2.reset();
+					popupForm2.classList.remove('active');
 				
 				});
 
@@ -164,7 +172,7 @@ document
 	// .addEventListener('click', refreshCatsAndContent);
 
 
-document.forms[0].addEventListener('submit', (event) => {
+document.forms[0].addEventListener('submit', (event) => {//отправка формы
 	event.preventDefault();
 	const formData = new FormData(event.target);
 	const body = Object.fromEntries(formData.entries());
@@ -173,7 +181,8 @@ document.forms[0].addEventListener('submit', (event) => {
 		addCatInLocalStorage({ ...body, id: getNewIdOfCat() }); // синхронная замена асинхронщины
 		refreshCatsAndContentSync();
 	});
-
+	document.forms[0].reset();
+	document.forms[0].classList.remove('active');
 });
 
 let addBtn = document.querySelector('.add_cat');
@@ -189,6 +198,8 @@ addBtn.addEventListener('click', (e) => {
 		popupForm.classList.add('active');
 		popupForm.parentElement.classList.add('active');
 	}
+
+	
 });
 
 // updateBtn.addEventListener('click', (e) => {

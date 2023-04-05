@@ -7,6 +7,7 @@
 
 body {
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	min-height: 100vh;
@@ -30,6 +31,12 @@ header {
 .header__logo {
 	height: 40px;
   }
+
+.navigation {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}  
 
 .navigation a {
 	position: relative;
@@ -78,6 +85,23 @@ header {
 	color: #162938;
   }
 
+  .update_cat {
+	width: 138px;
+	height: 58px;
+	box-sizing: border-box;
+	background: none;
+	border: none;
+	cursor: pointer;
+  }
+
+  .update_cat img {
+	width: 138px;
+	height: 58px;
+  }
+
+  .update_cat:hover {
+	transform: scale(1.2);
+  }
 
 .card {
 	padding: 20px;
@@ -97,7 +121,6 @@ header {
 	color: #000000;
 	font-weight: bold;
 	font-size: 1.8vw;
-	/* -webkit-text-stroke: 1px rgb(240, 240, 240); */
 }
 
 .content_btn {
@@ -138,6 +161,7 @@ header {
 
 .content {
 	padding: 20px;
+	padding-top: 100px;
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	gap: 20px;
@@ -361,18 +385,22 @@ form button:active {
 }
 
 
-
-
 .footer {
+  width: 100%;
+  height: 70px;
+  background-color: none;
+  position: sticky;
+  margin-top: 60px;
+	
+}
+
+.footer__copyright {
 	font-weight: 600;
+	text-align: center;
+	opacity: 0.5;
+	color: #fff;
 	padding-top: 90;
 	padding-bottom: 90;
 	padding-right: 20px;
 	padding-left: 20px;
-}
-
-.footer__copyright {
-	text-align: center;
-	opacity: 0.5;
-	color: #fff;
 }

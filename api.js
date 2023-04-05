@@ -1,10 +1,3 @@
-// // 1 GET https://cats.petiteweb.dev/api/single/:user/show - отобразить всех котиков
-// // 1 GET https://cats.petiteweb.dev/api/single/:user/ids - отобразить все возможные айди котиков
-// // 1 GET https://cats.petiteweb.dev/api/single/:user/show/:id  - отобразить конкретного котика
-// // 1 POST https://cats.petiteweb.dev/api/single/:user/add - добавить котика
-// // 1 PUT https://cats.petiteweb.dev/api/single/:user/update/:id - изменить информацию о котике
-// // 0 DELETE  https://cats.petiteweb.dev/api/single/:user/delete/:id - удалить котика из базы данных
-
 const config = {
 	baseUrl: 'https://cats.petiteweb.dev/api/single/merkuciozemba/',
 };
