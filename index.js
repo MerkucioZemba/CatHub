@@ -108,9 +108,9 @@ document
 				console.log(cat)
 
 				event.preventDefault();
-				if (!popupForm2.classList.contains('activ')) {
-					popupForm2.classList.add('activ');
-					popupForm2.parentElement.classList.add('activ');
+				if (!popupForm2.classList.contains('active')) {
+					popupForm2.classList.add('active');
+					popupForm2.parentElement.classList.add('active');
 				}
 				openCatCardPopup(cat);
 				
@@ -123,14 +123,19 @@ document
 				elements.description.value = cat.description;
 				console.log(elements);
 
+				popupForm2.addEventListener('submit', (event) => {
+					event.preventDefault();
+					const formData = new FormData(event.target);
+					const body = Object.fromEntries(formData.entries());
+					const catObj = {id:cat.id, ...body};
 				
-				api.updateCat(cat).then((res) => {
-
-					console.log(res);
-
-					updateCatInLocalStorage(event.target.value);
-					refreshCatsAndContentSync();
+					api.updateCat({id:cat.id, ...body}).then(() => {
+						updateCatInLocalStorage({id:cat.id, ...body});
+						refreshCatsAndContentSync();
+					});
+				
 				});
+
 			} else if (event.target.className === 'cat-card-delete content_btn') {
 				api.deleteCat(event.target.value).then((res) => {
 					console.log(res);
@@ -170,19 +175,6 @@ document.forms[0].addEventListener('submit', (event) => {
 	});
 
 });
-
-document.forms[0].addEventListener('update', (event) => {
-	event.preventDefault();
-	const formData = new FormData(event.target);
-	const body = Object.fromEntries(formData.entries());
-
-	api.updateCat({ ...body}).then(() => {
-		updateCatInLocalStorage({ ...body});
-		refreshCatsAndContentSync();
-	});
-
-});
-
 
 let addBtn = document.querySelector('.add_cat');
 // let updateBtn = document.querySelector('.cat-card-update content_btn');
