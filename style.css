@@ -192,8 +192,23 @@ header {
 	display: none;
 }
 
-.popup-wrapper.active {
+.popup-wrapper2 {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	justify-content: center;
+	align-items: center;
+	background-color: #0006;
+	z-index: 10;
+	display: none;
+}
+
+.active {
 	display: flex;
+	position: absolute;
+	z-index: 50;
 }
 
 .popup {
