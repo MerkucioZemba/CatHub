@@ -108,9 +108,9 @@ document
 				console.log(cat)
 
 				event.preventDefault();
-				if (!popupForm2.classList.contains('active')) {
-					popupForm2.classList.add('active');
-					popupForm2.parentElement.classList.add('active');
+				if (!popupForm2.classList.contains('activ')) {
+					popupForm2.classList.add('activ');
+					popupForm2.parentElement.classList.add('activ');
 				}
 				openCatCardPopup(cat);
 				
@@ -210,6 +210,8 @@ addBtn.addEventListener('click', (e) => {
 closePopupForm.addEventListener('click', () => {
 	popupForm.classList.remove('active');
 	popupForm.parentElement.classList.remove('active');
+	let popupWrapper = document.querySelector(".popup-wrapper");
+	popupWrapper.remove();
 });
 
 closePopupForm2.addEventListener('click', () => {

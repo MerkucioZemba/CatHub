@@ -211,6 +211,12 @@ header {
 	z-index: 50;
 }
 
+.activ {
+	display: flex;
+	position: absolute;
+	z-index: 50;
+}
+
 .popup {
 	width: calc(100% - 20px);
 	max-height: calc(100% - 20px);
