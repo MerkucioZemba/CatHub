@@ -1,4 +1,4 @@
-let store = window.localStorage; // инициализация локального хранилища
+let store = window.localStorage;
 console.log(store);
 
 const refreshCatsAndContent = () => {
@@ -7,9 +7,9 @@ const refreshCatsAndContent = () => {
 
 	api.getAllCats().then((res) => {
 		console.log('getAllCats', res);
-		store.setItem('cats', JSON.stringify(res)); // пополнение локального хранилища нашими котами
+		store.setItem('cats', JSON.stringify(res));
 		const cards = res.reduce((acc, el) => (acc += generateCard(el)), '');
-		content.insertAdjacentHTML('afterbegin', cards); // загуглите insertAdjacentHTML afterbegin
+		content.insertAdjacentHTML('afterbegin', cards);
 
 		let cards2 = document.getElementsByClassName('card');
 		for (let i = 0, cnt = cards2.length; i < cnt; i++) {
@@ -40,7 +40,7 @@ const refreshCatsAndContentSync = () => {
 		(acc, el) => (acc += generateCard(el)),
 		''
 	);
-	content.insertAdjacentHTML('afterbegin', cards); // загуглите insertAdjacentHTML afterbegin
+	content.insertAdjacentHTML('afterbegin', cards);
 
 	let cards2 = document.getElementsByClassName('card');
 	for (let i = 0, cnt = cards2.length; i < cnt; i++) {
@@ -138,9 +138,6 @@ document
 						updateCatInLocalStorage({id:cat.id, ...body});
 						refreshCatsAndContentSync();
 					});
-					
-					popupForm2.reset();
-					popupForm2.classList.remove('active');
 				
 				});
 
@@ -178,7 +175,7 @@ document.forms[0].addEventListener('submit', (event) => {//отправка фо
 	const body = Object.fromEntries(formData.entries());
 
 	api.addCat({ ...body, id: getNewIdOfCat() }).then(() => {
-		addCatInLocalStorage({ ...body, id: getNewIdOfCat() }); // синхронная замена асинхронщины
+		addCatInLocalStorage({ ...body, id: getNewIdOfCat() });
 		refreshCatsAndContentSync();
 	});
 	document.forms[0].reset();
@@ -186,7 +183,6 @@ document.forms[0].addEventListener('submit', (event) => {//отправка фо
 });
 
 let addBtn = document.querySelector('.add_cat');
-// let updateBtn = document.querySelector('.cat-card-update content_btn');
 let popupForm = document.querySelector('#popup-form');
 let popupForm2 = document.querySelector('#popup-form-2');
 let closePopupForm = popupForm.querySelector('.popup-close-btn1');
@@ -198,17 +194,8 @@ addBtn.addEventListener('click', (e) => {
 		popupForm.classList.add('active');
 		popupForm.parentElement.classList.add('active');
 	}
-
-	
 });
 
-// updateBtn.addEventListener('click', (e) => {
-// 	e.preventDefault();
-// 	if (!popupForm.classList.contains('active')) {
-// 		popupForm.classList.add('active');
-// 		popupForm.parentElement.classList.add('active');
-// 	}
-// });
 
 closePopupForm.addEventListener('click', () => {
 	popupForm.classList.remove('active');
