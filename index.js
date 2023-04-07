@@ -117,7 +117,7 @@ document
 					popupForm2.classList.add('active');
 					popupForm2.parentElement.classList.add('active');
 				}
-				openCatCardPopup(cat);
+				/*openCatCardPopup(cat);*/
 				
 				console.log(popupForm2);
 
@@ -169,7 +169,7 @@ document
 	// .addEventListener('click', refreshCatsAndContent);
 
 
-document.forms[0].addEventListener('submit', (event) => {//отправка формы
+document.forms[0].addEventListener('submit', (event) => { //отправка формы
 	event.preventDefault();
 	const formData = new FormData(event.target);
 	const body = Object.fromEntries(formData.entries());
