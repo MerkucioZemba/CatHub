@@ -1,7 +1,7 @@
 let store = window.localStorage;
 console.log(store);
 
-const refreshCatsAndContent = () => {
+const refreshCatsAndContent = () => { //отрисовка карточек
 	const content = document.getElementsByClassName('content')[0];
 	content.innerHTML = '';
 
@@ -19,7 +19,7 @@ const refreshCatsAndContent = () => {
 	});
 };
 
-const openCatCardPopup = (cat) => {
+const openCatCardPopup = (cat) => { //добавление котика
 	const content = document.getElementsByClassName('content')[0];
 	content.insertAdjacentHTML('afterbegin', generateCatCardPopup(cat));
 
@@ -32,7 +32,7 @@ const openCatCardPopup = (cat) => {
 };
 
 
-const refreshCatsAndContentSync = () => {
+const refreshCatsAndContentSync = () => { //получение котиков из local storage
 	const content = document.getElementsByClassName('content')[0];
 	content.innerHTML = '';
 
@@ -49,7 +49,7 @@ const refreshCatsAndContentSync = () => {
 	}
 };
 
-const addCatInLocalStorage = (cat) => {
+const addCatInLocalStorage = (cat) => { //добавление в local storage
 	store.setItem(
 		'cats',
 		JSON.stringify([...JSON.parse(store.getItem('cats')), cat])
@@ -60,7 +60,7 @@ const getCatsFromLocalStorage = () => {
 	return JSON.parse(store.getItem("cats"));
 };
 
-const updateCatInLocalStorage = (cat) => {
+const updateCatInLocalStorage = (cat) => { //изменение в local storage
 	let cats = getCatsFromLocalStorage();
 	for (let i = 0, cnt = cats.length; i < cnt; i++) {
 		if (cats[i].id == cat.id) {
@@ -74,7 +74,7 @@ const updateCatInLocalStorage = (cat) => {
 	);
 };
 
-const deleteCatFromLocalStorage = (catId) => {
+const deleteCatFromLocalStorage = (catId) => { //удаление
 
 	store.setItem(
 		'cats',
@@ -101,13 +101,13 @@ document
 	.addEventListener('click', (event) => {
 		console.log(event.target);
 		if (event.target.tagName === 'BUTTON') {
-			if (event.target.className === 'cat-card-view content_btn') {
+			if (event.target.className === 'cat-card-view content_btn') { //просмотр
 				console.log("add")
 				api.getCatById(event.target.value).then((res) => {
 					console.log(res);
 					openCatCardPopup(res);
 				});
-			} else if (event.target.className === 'cat-card-update content_btn') {
+			} else if (event.target.className === 'cat-card-update content_btn') { //изменение
 				console.log("put")
 				let cat = getCatFromLocalStorage(event.target.value)[0]
 				console.log(cat)
@@ -141,7 +141,7 @@ document
 				
 				});
 
-			} else if (event.target.className === 'cat-card-delete content_btn') {
+			} else if (event.target.className === 'cat-card-delete content_btn') { //удаление
 				api.deleteCat(event.target.value).then((res) => {
 					console.log(res);
 					deleteCatFromLocalStorage(event.target.value);
@@ -152,21 +152,14 @@ document
 	});
 
 
-const getNewIdOfCat = () => {
-	cats = getCatsFromLocalStorage()
-	let max_id = 0;
-	for (let i = 0, cnt = cats.length; i < cnt; i++) {
-		if (max_id < cats[i].id) {
-			max_id = cats[i].id + 1;
-		}
+const getNewIdOfCat = () => { //функция генерации id для нового кота
+	let res = JSON.parse(store.getItem('cats')); 
+	if (res.length) {
+	  return Math.max(...res.map((el) => el.id)) + 1; //здесь максимально значение из имеющихся на этот момент и увеличение его на единицу
+	} else {
+	  return 1;
 	}
-
-	return max_id
-};
-
-document
-	// .getElementById('reload-page')
-	// .addEventListener('click', refreshCatsAndContent);
+  };
 
 
 document.forms[0].addEventListener('submit', (event) => { //отправка формы
@@ -179,10 +172,11 @@ document.forms[0].addEventListener('submit', (event) => { //отправка ф�
 		refreshCatsAndContentSync();
 	});
 	document.forms[0].reset();
-	document.forms[0].classList.remove('active');
+	document.forms[0].classList.remove('.active');
 });
 
 let addBtn = document.querySelector('.add_cat');
+let popupWrapper = document.querySelector(".popup-wrapper");
 let popupForm = document.querySelector('#popup-form');
 let popupForm2 = document.querySelector('#popup-form-2');
 let closePopupForm = popupForm.querySelector('.popup-close-btn1');
@@ -190,17 +184,25 @@ let closePopupForm2 = popupForm2.querySelector('.popup-close-btn2');
 
 addBtn.addEventListener('click', (e) => {
 	e.preventDefault();
-	if (!popupForm.classList.contains('active')) {
-		popupForm.classList.add('active');
-		popupForm.parentElement.classList.add('active');
-	}
+	popupForm.classList.add('active');
+	popupForm.parentElement.classList.toggle('active');
+
+	const formData = new FormData(event.target);
+	const body = Object.fromEntries(formData.entries());
+
+	api.addCat({ ...body, id: getNewIdOfCat() }).then(() => {
+		addCatInLocalStorage({ ...body, id: getNewIdOfCat() });
+		refreshCatsAndContentSync();
+	});
+	popupForm.reset();
+	popupForm.classList.toggle('active');
+	popupWrapper.classList.toggle('active');
 });
 
 
 closePopupForm.addEventListener('click', () => {
 	popupForm.classList.remove('active');
 	popupForm.parentElement.classList.remove('active');
-	let popupWrapper = document.querySelector(".popup-wrapper");
 	popupWrapper.remove();
 });
 

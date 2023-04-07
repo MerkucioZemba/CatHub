@@ -106,7 +106,7 @@ header {
 .card {
 	padding: 20px;
 	text-align: center;
-	background: url(img/cat.jpg) no-repeat center / cover;
+	background: url(img/cat.jpg) no-repeat center / contain;
 	border-radius: 10px;
 	display: flex;
 	flex-direction: column;
@@ -153,6 +153,7 @@ header {
 	align-items: center;
 	background-color: #444;
 	color: #fff;
+	z-index: 80;
 }
 .btn:hover {
 	color: #000;
